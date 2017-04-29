@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="/Public/js/jquery.js"></script>
+<script>
+var status = 'stop';
+var loadnum = 0;
+var loadurl = "<?=U('Home/Basket/Proload')?>";
+var startdate = '';
+$(function(){
+	var t = getTime();
+ 
+	window.setInterval(oneSecond, 1000); 
+	$("#theButton").click(function(){theButton(this)});
+});
+function oneSecond() { 
+	getNow();
+	nexttime();
+} 
+function getTime(){
+	var myDate = new Date();
+	return myDate.toLocaleString(); 
+}
+function getNow(){
+	var t = getTime();
+	$(".now").html(t);
+}
+function nexttime(){
+	if(status == 'running'){
+		 
+		var t = $("#nexttime").html();
+		--t;
+		if(t <= 0 ){
+			t = $("#frequency").val();
+			proload();
+		}
+		$("#nexttime").html(t);
+	}
+}
+//启动
+function theButton(obj){
+	
+	var val = $(obj).val();
+	if(val == '启动'){
+		startdate = getTime();
+		$("#startdate").html(startdate);
+		prostart();
+		val = '停止';
+	}else{
+		prostop();
+		val = '启动';
+	}
+	$(obj).val(val);
+}
+//开始
+function prostart(){
+	//$("#prostatus").show();
+	
+	proload();
+}
+//停止
+function prostop(){
+	startdate = '';
+	status = 'stop';
+	loadnum = 0;
+	//$("#prostatus").hide();
+}
+//读取
+function proload(){
+	status = 'running';
+	$("#loadstatus").html('Loading...');
+	$("#nexttime").html($("#frequency").val());
+	$.get(loadurl,function(d){
+		if(d == '1'){
+			prosuccess();
+			
+		}
+	});
+}
+function prosuccess(){
+	$("#loadstatus").html('Success!');
+	loadnum++;
+	$("#loadnum").html(loadnum);
+}
+</script>
+</head>
+<body style="width:50000px"> 
+<table>
+<tr>
+
+<td>当前时间:&nbsp;&nbsp;</td><td><span class='now'></span></td>
+</tr><tr>
+<td>设定频率:&nbsp;&nbsp;</td><td><input type='text' style="width:50px" class='frequency' id="frequency" value="600" />秒</td>
+</tr>
+
+<tr>
+<td>操作:&nbsp;&nbsp;</td><td><input type="button" value="启动" name="button" id="theButton" /></td>
+</tr>
+</table>
+<div>
+<table id="prostatus">
+<tr>
+<td>状态：</td><td id='loadstatus'></td>
+</tr>
+<tr>
+<td>下次读取：</td><td ><span id='nexttime'></span>&nbsp;&nbsp;&nbsp;&nbsp;<!--<input type="button" value="立即执行" name="button" id="proload" />--></td>
+</tr>
+<tr>
+<td>读取次数：</td><td ><span id='loadnum'>0</span></td>
+</tr>
+<tr>
+<td>开始时间：</td><td ><span id='startdate'></span></td>
+</tr>
+<tr>
+<td><a href="<?=U("Home/Basket/Analyze")?>" target="_blank">已抓取数据</a></td>
+</tr>
+</table>
+</div>
+</body>
+<style>
+.tcenter{
+	text-align:center;
+}
+.w200{
+	width:200px;
+}
+.w65{
+	width:65px;
+}
+.now{
+	color:red;
+	font-size:14px;
+ 
+}
+#prostatus{
+	 
+}
+</style>
+</html>
