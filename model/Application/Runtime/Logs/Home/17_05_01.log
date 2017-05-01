@@ -1,0 +1,16 @@
+[ 2017-05-01T09:22:36+08:00 ] 192.168.0.10 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000448s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000560s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000595s ]
+SQL: SHOW COLUMNS FROM `game_name` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`pid`,`title`,`shortTitle`,`sort`,`thumb`,`winStartTime`,`winEndTime`,`apiUri` FROM `game_name` WHERE `status` = 1 ORDER BY sort desc  [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `game_name` WHERE `status` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `id`,`pid`,`title`,`shortTitle`,`sort`,`thumb`,`winStartTime`,`winEndTime`,`apiUri` FROM `game_name` WHERE `status` = 1 ORDER BY sort desc  [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `game_name` WHERE `status` = 1 LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000643s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000676s ]
+

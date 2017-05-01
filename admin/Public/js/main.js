@@ -13,8 +13,7 @@ var app = angular.module("app", [
     "ui.router", 
     "ui.bootstrap", 
     "oc.lazyLoad",  
-    "ngSanitize",
-    'ngKeditor',
+    "ngSanitize", 
     'Scope.safeApply',
 ]);
 function FH(responce){

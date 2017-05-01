@@ -5,7 +5,7 @@ class IndexController extends Controller {
 	public function _initialize(){
 		$this->PURL = "/Public/";
 		$this->TPL_URL = "?g=Manager&c=Index&a=tpl&tpl=";
-		$this->DATA_URL = '?g=Manager&c=Data&a=';
+		$this->DATA_URL = '?c=Data&a=';
 	}
 	public function index(){ 
 		 
@@ -14,9 +14,10 @@ class IndexController extends Controller {
 			#redirect('/manage/login/');
 			#exit;
 		#}
+ 		 
+		#$this->css = $this->_CSS();
+		#$this->js = $this->_JS();
 
-		$this->css = $this->_CSS();
-		$this->js = $this->_JS();
 		$this->display();
 	}
 	public function tpl(){
